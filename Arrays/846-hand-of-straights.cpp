@@ -1,21 +1,25 @@
 class Solution {
 public:
-    bool isNStraightHand(vector<int>& nums, int size) {
-
-    int n = nums.size();
-    if((n % size) != 0) return 0;
-    map<int, int> mp;
-    for(auto &i : nums) mp[i]++;
-    while(mp.size() != 0) {
-        int start = begin(mp)->first;
-        for(int x = start; x < start+size; x++){
-            if(mp.count(x)) {
-                if(--mp[x] == 0) 
-                    mp.erase(x);
-            }else return 0;
+    bool isNStraightHand(vector<int>& hand, int groupSize) {
+        
+        if(hand.size()%groupSize) return 0;
+        map<int,int> map;
+        for(int i=0; i<hand.size(); i++) {
+            map[hand[i]]++;
         }
-    }
-    return 1;
-    
+        auto it = begin(map);
+        while(it != end(map)) {
+            if(it->second == 0) {
+                ++it;
+                continue;
+            }
+            int v = it->first;
+            for(int x=0; x<groupSize; x++) {
+                if(map[v] == 0) return 0;
+                map[v]--;
+                v++;
+            }
+        }
+        return 1;
     }
 };
