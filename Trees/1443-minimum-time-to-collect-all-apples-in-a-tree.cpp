@@ -26,7 +26,7 @@ public:
             if(!vis[adj]) {
                 vis[adj] = 1;
                 int i = dfs(adj, graph, apples);
-                if(i) sum++;
+                sum += i;
                 b = b or i;
             }
         }
